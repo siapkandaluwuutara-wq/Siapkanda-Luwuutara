@@ -236,17 +236,17 @@ export const RIVER_NETWORKS = [
 export const IMPORTANT_LANDMARKS = [
   {
     id: 'kantor-bupati',
-    name: 'Kantor Bupati & Pemda Luwu Utara',
+    name: 'Kantor Bupati Luwu Utara',
     category: 'pemerintahan',
-    lat: -2.5601,
-    lng: 120.3255
+    lat: -2.5499808740302465,
+    lng: 120.34633706586513
   },
   {
     id: 'disnakertrans',
-    name: 'Disnakertrans Kab. Luwu Utara',
+    name: 'Dinas Transnaker Kab. Luwu Utara',
     category: 'dinas',
-    lat: -2.5620,
-    lng: 120.3290
+    lat: -2.548980678211017,
+    lng: 120.34593704959413
   },
   {
     id: 'bandara-andi-djemma',

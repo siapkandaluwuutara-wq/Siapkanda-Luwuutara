@@ -305,8 +305,10 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     // F. Landmark Penting
     if (showLandmarks) {
       IMPORTANT_LANDMARKS.forEach(lm => {
+        const isGov = lm.category === 'pemerintahan' || lm.category === 'dinas';
+        const borderColor = lm.id === 'kantor-bupati' ? '#f59e0b' : lm.id === 'disnakertrans' ? '#10b981' : '#38bdf8';
         const iconHtml = `
-          <div style="background-color: #0f172a; border: 2px solid #38bdf8; border-radius: 9999px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); color: white; font-size: 10px;">
+          <div style="background-color: #0f172a; border: 2px solid ${borderColor}; border-radius: 9999px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.35); color: ${isGov ? '#fde68a' : '#ffffff'}; font-size: 11px;">
             ★
           </div>
         `;
@@ -317,10 +319,23 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
           iconAnchor: [11, 11]
         });
 
-        const marker = L.marker([lm.lat, lm.lng], { icon: landmarkIcon });
-        marker.bindTooltip(`<b>${lm.name}</b><br/><span style="color:#38bdf8;font-size:10px;">Fasilitas Wilayah Luwu Utara</span>`, {
-          direction: 'top'
+        const marker = L.marker([lm.lat, lm.lng], {
+          icon: landmarkIcon,
+          zIndexOffset: 650
         });
+        marker.bindTooltip(
+          `<b>${lm.name}</b><br/><span style="color:#38bdf8;font-size:10px;">Fasilitas Wilayah Luwu Utara</span><br/><span style="color:#cbd5e1;font-size:10px;font-family:monospace;">${lm.lat}, ${lm.lng}</span>`,
+          { direction: 'top' }
+        );
+        marker.bindPopup(
+          `<div style="font-family:system-ui,sans-serif;font-size:12px;color:#0f172a;min-width:200px;">
+            <div style="font-weight:800;margin-bottom:4px;">★ ${lm.name}</div>
+            <div style="font-size:11px;color:#475569;margin-bottom:6px;">Fasilitas Wilayah Kabupaten Luwu Utara</div>
+            <div style="background:#f1f5f9;padding:4px 6px;border-radius:4px;font-family:monospace;font-size:10px;color:#334155;">
+              Lat: ${lm.lat}<br/>Lng: ${lm.lng}
+            </div>
+          </div>`
+        );
         roadsGroupRef.current?.addLayer(marker);
       });
     }

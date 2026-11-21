@@ -84,74 +84,97 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
   return (
     <div className="space-y-10">
-      {/* 1. Hero Section with dynamic photo asset & officer edit button */}
-      <section className="relative rounded-2xl overflow-hidden shadow-sm border border-slate-200 min-h-[460px] flex items-end group">
-        <div className="absolute inset-0 z-0">
+      {/* 1. Hero Section: Gambar Asli tanpa pemotongan (proporsi asli) & warna 100% natural */}
+      <section className="space-y-4">
+        {/* Banner Foto Resmi: Ukuran & Proporsi Warna Asli */}
+        <div className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/90 bg-slate-950 group">
           <img
             src={images.heroBanner}
-            alt="Kawasan Pemukiman Transmigrasi Terpadu Kabupaten Luwu Utara"
-            className="w-full h-full object-cover object-center"
+            alt="Bupati & Wakil Bupati Luwu Utara - Kawasan Pemukiman Transmigrasi Terpadu"
+            className="w-full h-auto block object-contain"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-slate-900/30" />
+
+          {/* Officer Quick Edit Photo Badge (Khusus Admin Utama) */}
+          {isMainAdmin && onOpenPhotoModal && (
+            <button
+              onClick={onOpenPhotoModal}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/85 hover:bg-slate-900 text-white text-xs font-semibold backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg"
+              title="Ganti foto hero banner ini (Khusus Admin Utama)"
+            >
+              <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Ganti Foto Hero Banner</span>
+            </button>
+          )}
+
+          {/* Caption resmi di bawah foto */}
+          <div className="bg-slate-900 border-t border-slate-800 px-4 py-2 sm:px-6 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-2">
+            <span className="font-semibold text-emerald-400 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Pemerintah Kabupaten Luwu Utara &middot; Pimpinan Daerah & Kawasan Transmigrasi Terpadu
+            </span>
+            <span className="text-slate-400 text-[11px]">
+              Kawasan Masamba &amp; Kawasan Seko
+            </span>
+          </div>
         </div>
 
-        {/* Officer Quick Edit Photo Badge (Khusus Admin Utama) */}
-        {isMainAdmin && onOpenPhotoModal && (
-          <button
-            onClick={onOpenPhotoModal}
-            className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-semibold backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-lg"
-            title="Ganti foto hero banner ini (Khusus Admin Utama)"
-          >
-            <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Ganti Foto Hero Banner</span>
-          </button>
-        )}
-
-        <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-4xl space-y-4">
-          <div className="flex items-center gap-3">
-            <BrandLogo
-              src={images.logoUrl || '/Luwu_Utara_Logo_(North_Luwu).png'}
-              alt="Logo Resmi Kabupaten Luwu Utara"
-              className="h-12 sm:h-14 w-auto object-contain shrink-0 drop-shadow-md cursor-pointer"
-              allowZoom={true}
-            />
-            <div>
-              <div className="flex items-center gap-2 text-xs font-semibold tracking-wide text-emerald-300 uppercase">
-                <span>Dinas Transmigrasi dan Tenaga Kerja Kab. Luwu Utara</span>
-                <span aria-hidden="true">&middot;</span>
-                <span>2 Kawasan Terpadu (Masamba & Seko)</span>
-              </div>
-              <div className="text-[11px] text-slate-300 font-medium">
-                Pemerintah Kabupaten Luwu Utara &middot; Provinsi Sulawesi Selatan
+        {/* Panel Informasi & Navigasi Utama Portal */}
+        <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white p-6 sm:p-8 lg:p-10 border border-slate-800 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 max-w-4xl space-y-4">
+            <div className="flex items-center gap-3">
+              <BrandLogo
+                src={images.logoUrl || '/Luwu_Utara_Logo_(North_Luwu).png'}
+                alt="Logo Resmi Kabupaten Luwu Utara"
+                className="h-12 sm:h-14 w-auto object-contain shrink-0 drop-shadow-md cursor-pointer"
+                allowZoom={true}
+              />
+              <div>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide text-emerald-300 uppercase">
+                  <span>Dinas Transmigrasi dan Tenaga Kerja Kab. Luwu Utara</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <span>2 Kawasan Terpadu (Masamba & Seko)</span>
+                </div>
+                <div className="text-[11px] text-slate-300 font-medium">
+                  Pemerintah Kabupaten Luwu Utara &middot; Provinsi Sulawesi Selatan
+                </div>
               </div>
             </div>
-          </div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight text-balance">
-            Sistem Informasi Data Administrasi Pengembangan Kawasan Transmigrasi Terpadu
-          </h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+              SIAP KANDA &mdash; Sistem Informasi Data Administrasi Pengembangan Kawasan Transmigrasi Terpadu
+            </h1>
 
-          <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed">
-            Portal resmi monitoring real-time dan keterbukaan publik atas hak legalitas lahan (SHM), kependudukan,
-            potensi komoditas, dan infrastruktur permukiman di <strong className="text-white font-semibold">Kawasan Masamba</strong> (6 UPT: Lantang Tallang, Sepakat, Maipi, Buso, Pongkase, Bantimurung) 
-            dan <strong className="text-white font-semibold">Kawasan Seko</strong>.
-          </p>
+            <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+              Portal resmi monitoring real-time dan keterbukaan publik atas hak legalitas lahan (SHM), kependudukan,
+              potensi komoditas, dan infrastruktur permukiman di <strong className="text-white font-semibold">Kawasan Masamba</strong> (6 UPT: Lantang Tallang, Sepakat, Maipi, Buso, Pongkase, Bantimurung) 
+              dan <strong className="text-white font-semibold">Kawasan Seko</strong>.
+            </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-3">
-            <button
-              onClick={onOpenCheckModal}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm transition-colors shadow-sm cursor-pointer whitespace-nowrap"
-            >
-              <span>Cek Status Hak Transmigran</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => onNavigateTab('peta')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-sm transition-colors cursor-pointer whitespace-nowrap backdrop-blur-sm"
-            >
-              <span>Buka Peta 2 Kawasan (GIS)</span>
-            </button>
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={onOpenCheckModal}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all shadow-md hover:shadow-emerald-600/20 cursor-pointer whitespace-nowrap"
+              >
+                <span>Cek Status Hak Transmigran</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => onNavigateTab('peta')}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-medium text-sm transition-colors cursor-pointer whitespace-nowrap"
+              >
+                <Compass className="w-4 h-4 text-emerald-400" />
+                <span>Buka Peta 2 Kawasan (GIS)</span>
+              </button>
+              <button
+                onClick={() => onNavigateTab('tanah')}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-sm font-medium transition-colors cursor-pointer whitespace-nowrap"
+              >
+                <FileCheck2 className="w-4 h-4 text-blue-400" />
+                <span>Data SHM & Lahan</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>

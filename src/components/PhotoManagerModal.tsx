@@ -327,28 +327,37 @@ export const PhotoManagerModal: React.FC<PhotoManagerModalProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                  <div className="relative aspect-video rounded-lg overflow-hidden border border-slate-300 bg-slate-900 shadow-inner">
+                  <div className="relative aspect-video rounded-lg overflow-hidden border border-slate-300 bg-slate-950 shadow-inner flex items-center justify-center">
                     <img
                       src={heroBanner}
                       alt="Preview Hero Banner"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="md:col-span-2 space-y-2">
-                    <label className="block text-slate-700 font-medium">Unggah File Foto Baru dari Komputer:</label>
+                    <label className="block text-slate-700 font-medium">Unggah File Foto Baru dari Komputer (Format Asli):</label>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleFileUpload(e, setHeroBanner)}
                       className="block w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
                     />
+                    <div className="flex items-center gap-2 pt-1 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => setHeroBanner('/BUPATI DAN WAKIL-01.jpg')}
+                        className="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded text-[11px] font-semibold cursor-pointer"
+                      >
+                        Gunakan Foto Resmi Bupati & Wakil (BUPATI DAN WAKIL-01.jpg)
+                      </button>
+                    </div>
                     <div className="pt-1">
-                      <label className="block text-slate-700 font-medium mb-1">Atau Gunakan Tautan URL Gambar:</label>
+                      <label className="block text-slate-700 font-medium mb-1">Atau Gunakan Tautan URL / Jalur File:</label>
                       <input
                         type="text"
                         value={heroBanner}
                         onChange={(e) => setHeroBanner(e.target.value)}
-                        placeholder="https://..."
+                        placeholder="Contoh: /BUPATI DAN WAKIL-01.jpg"
                         className="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs font-mono"
                       />
                     </div>

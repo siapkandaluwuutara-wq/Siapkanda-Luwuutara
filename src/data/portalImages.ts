@@ -1,5 +1,5 @@
 import { PortalImages } from '../types';
-import defaultHeroBanner from '../assets/images/hero_transmigrasi_luwu_1791420200639.jpg';
+import defaultHeroBanner from '../assets/images/BUPATI DAN WAKIL-01.jpg';
 import defaultCommodityKakao from '../assets/images/komoditas_kakao_luwu_1791420216171.jpg';
 import defaultInfrastructure from '../assets/images/infrastruktur_transmigrasi_1791420229259.jpg';
 import defaultLogoUrl from '../assets/images/Luwu_Utara_Logo_(North_Luwu).png';
@@ -17,7 +17,7 @@ export const sanitizePortalImages = (savedData?: string | null): PortalImages =>
   try {
     const parsed = JSON.parse(savedData);
     const sanitize = (val?: string, fallback?: string): string => {
-      if (!val || val.startsWith('/src/')) return fallback || '';
+      if (!val || val.startsWith('/src/') || val.includes('hero_transmigrasi_luwu')) return fallback || '';
       return val;
     };
     return {
